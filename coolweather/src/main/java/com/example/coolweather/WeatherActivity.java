@@ -1,6 +1,8 @@
 package com.example.coolweather;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -40,6 +42,14 @@ public class WeatherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (Build.VERSION.SDK_INT >= 21){
+            View decorView = getWindow().getDecorView();
+            decorView.setSystemUiVisibility(
+                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN//Activity全屏显示，但状态栏不会被隐藏覆盖，状态栏依然可见
+                    | View.SYSTEM_UI_FLAG_LAYOUT_STABLE//防止系统栏隐藏时内容区域大小发生变化
+            );
+            getWindow().setStatusBarColor(Color.TRANSPARENT);//透明
+        }
         setContentView(R.layout.activity_weather);
         //初始化各控件
         bingPicImg = (ImageView) findViewById(R.id.bing_pic_img);
